@@ -34,10 +34,10 @@ func (s ParcelStore) Get(number int) (Parcel, error) {
 	row := s.db.QueryRow("select number, client, status, address, created_at from parcel where number = ?", number)
 	err := row.Scan(&p.Number, &p.Client, &p.Status, &p.Address, &p.CreatedAt)
 	if err != nil {
-		return p, err
+		return Parcel{}, err
 	}
 	// заполните объект Parcel данными из таблицы
-	return Parcel{}, err
+	return p, err
 }
 
 func (s ParcelStore) GetByClient(client int) ([]Parcel, error) {
